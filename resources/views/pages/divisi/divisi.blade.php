@@ -21,15 +21,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($divisi as $item)
+                    @foreach ($data as $item)
                         <tr>
                             <td>{{$item->kode_divisi}}</td>
                             <td>{{$item->nama_divisi}}</td>
-                        <form action="" method="post">
+                        <form action="/divisi/destroy" method="post">
                             <td>
-                                <a href="/divisi/edit/{{$item->id}}">
-                                <i class="fas fa-fw fa-pencil"></i>
+                                <a href="/divisi/edit/{{$item->id}}" class="btn btn-success">
+                                <i class="fas fa-edit"></i>
                                 </a>
+                                <button class="delete btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
                             </td>
                         </form>
                         </tr>

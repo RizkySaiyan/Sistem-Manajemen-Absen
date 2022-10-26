@@ -12,6 +12,9 @@
     <title>SB Admin 2 - Dashboard</title>
 
     <!-- Custom fonts for this template-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+     integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+     crossorigin=""/>
     <link href="{{url('template-backoffice/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet"
         type="text/css">
     <link
@@ -20,6 +23,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{url('template-backoffice/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <link href="{{url('template-backoffice/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 
 </head>
@@ -62,7 +66,7 @@
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link" href="/jam-kerja">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fas fa-fw fa-clock"></i>
                     <span>Jam Kerja</span>
                 </a>
             </li>
@@ -77,7 +81,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="/karyawan">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fas fa-fw fa-user"></i>
                     <span>Data Karyawan</span>
                 </a>
             </li>
@@ -92,7 +96,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="/absen">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fas fa-fw fa-calendar"></i>
                     <span>Absen</span>
                 </a>
             </li>
@@ -222,6 +226,9 @@
         <!-- Custom scripts for all pages-->
         <script src="{{url('template-backoffice/js/sb-admin-2.min.js')}}"></script>
         </script>
+        <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+        integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+        crossorigin=""></script>
         @yield('js')
         <!-- Page level plugins -->
         <script src="{{url('template-backoffice/vendor/chart.js/Chart.min.js')}}"></script>

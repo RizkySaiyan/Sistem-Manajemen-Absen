@@ -24,7 +24,12 @@ Route::get('/login', [C\LoginController::class,'index']);
 //profile
 Route::get('/profil',[C\UserController::class,'index']);
 
-Route::get('/karyawan',[C\UserController::class,'index']);
+Route::get('/karyawan',[C\UserController::class,'karyawan']);
+Route::get('/karyawan/tambah',[C\UserController::class,'create']);
+Route::get('/karyawan/ubah',[C\UserController::class,'edit']);
+Route::post('/karyawan',[C\UserController::class,'store']);
+Route::post('/karyawan/update/{id}',[C\UserController::class,'update']);
+Route::post('/karyawan/destroy/{id}',[C\UserController::class,'destroy']);
 
 
 Route::get('/absen',[C\AbsensiController::class,'index']);
@@ -34,10 +39,14 @@ Route::get('/divisi/tambah',[C\DivisiController::class,'create']);
 Route::get('/divisi/edit/{id}',[C\DivisiController::class,'edit']);
 Route::post('/divisi',[C\DivisiController::class,'store']);
 Route::post('/divisi',[C\DivisiController::class,'update']);
+Route::post('/divisi/destroy/{id}',[C\DivisiController::class,'destroy']);
 
 Route::get('/jam-kerja',[C\JamKerjaController::class,'index']);
 Route::get('/jam-kerja/tambah',[C\JamKerjaController::class,'create']);
+Route::get('/jam-kerja/edit/{id}',[C\JamKerjaController::class,'edit']);
 Route::post('/jam-kerja',[C\JamKerjaController::class,'store']);
+Route::post('/jam-kerja/update/{id}',[C\JamKerjaController::class,'update']);
+Route::post('/jam-kerja/destroy/{id}',[C\JamKerjaController::class,'destroy']);
 
 
 

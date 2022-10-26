@@ -27,7 +27,17 @@
                         <td>{{$item->nama_divisi}}</td>
                         <td>{{$item->jam_masuk}}</td>
                         <td>{{$item->jam_keluar}}</td>
-                        <td><a href=""></a></td>
+                        <form action="/jam-kerja/destroy/{{$item->id}}" method="post">
+                            @csrf
+                            <td>
+                                <a href="/jam-kerja/edit/{{$item->id}}" class="btn btn-success">
+                                <i class="fas fa-edit"></i>
+                                </a>
+                                <button type="submit" class="delete btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </form>
                     </tr>
                     @endforeach
                 </tbody>

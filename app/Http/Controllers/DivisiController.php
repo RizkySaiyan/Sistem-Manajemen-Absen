@@ -8,10 +8,13 @@ use App\Models\divisi;
 
 class DivisiController extends Controller
 {
+    
     public function index(Request $request){
 
-        $divisi = divisi::all();
-        return view('pages.Divisi.divisi', compact('divisi'));
+        $divisi = divisi::paginate(10);
+        return view('pages.Divisi.divisi')->with([
+            'data' => $divisi
+        ]);
     }
 
     public function create(){
@@ -20,10 +23,10 @@ class DivisiController extends Controller
 
     public function store(Request $request){
 
-        $request->validate([
-            'kodedivisi' => 'required',
-            'namadivisi' => 'required'
-        ]);
+        // $request->validate([
+        //     'kodedivisi' => 'required',
+        //     'namadivisi' => 'required'
+        // ]);
 
         $divisi = new divisi;
         $divisi->nama_divisi = $request->namadivisi;

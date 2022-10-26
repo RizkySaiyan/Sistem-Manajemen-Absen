@@ -10,7 +10,7 @@
         <h6 class="m-0 font-weight-bold text-primary">Form Tambah Karyawan</h6>
     </div>
     <div class="card-body">
-        <form action="/karyawan" method="post">
+        <form action="/karyawan/update/{id}" method="post">
             @csrf
             <div class="form-group">
                 <label for="Divisi">Divisi</label>

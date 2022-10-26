@@ -4,7 +4,25 @@
     <h1 class="h3 mb-0 text-gray-800">Absensi</h1>
 </div>
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Ini Content</h6>
+            </div>
+            <div class="card-body">
+                <button class="btn btn-primary" onclick="openCam()">Open Camera</button>
+                <div id="camera"></div>
+                <button class="btn btn-primary" style="display: none" id="cameraBtn" onclick="take_picture()"><i class="fa fa-fw fa-camera"></i></button>
+                <div id="results">
+
+                </div>
+                <div id="map" style="height:180px;">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Ini Content</h6>
@@ -45,6 +63,12 @@
 
         } );
     }
+
+    var map = L.map('map').setView([51.505, -0.09], 13);
     
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
     </script>
 @endsection

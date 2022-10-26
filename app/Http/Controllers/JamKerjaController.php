@@ -12,16 +12,31 @@ class JamKerjaController extends Controller
 {
     
     public function index(){
-        $data = DB::table('waktu_kerja')
-        ->leftJoin('divisi', 'divisi.id', '=', 'waktu_kerja.divisi_id')
-        ->select('divisi.id','divisi.nama_divisi','waktu_kerja.jam_masuk','waktu_kerja.jam_keluar')
+        $data = jamkerja::leftjoin('divisi', 'divisi.id', '=', 'waktu_kerja.divisi_id')
+        ->select('divisi.kode_divisi','divisi.nama_divisi',
+        'waktu_kerja.divisi_id','waktu_kerja.id',
+        'waktu_kerja.jam_masuk','waktu_kerja.jam_keluar')
         ->get();
-        return view('pages.Jam-Kerja.jam-kerja',compact('data'));
+        return view('pages.Jam-Kerja.jam-kerja')->with([
+            'data' => $data
+        ]);
+        
     }
 
     public function create(){
         $divisi = divisi::all();
         return view('pages.Jam-Kerja.tambahJamKerja',compact('divisi'));
+    }
+
+    public function edit($id){
+        $divisi = divisi::all();
+        $data = jamkerja::leftjoin('divisi', 'divisi.id', '=', 'waktu_kerja.divisi_id')
+        ->Where('waktu_kerja.id',$id)
+        ->select('divisi.kode_divisi','divisi.nama_divisi',
+        'waktu_kerja.divisi_id','waktu_kerja.id'
+        ,'waktu_kerja.jam_masuk','waktu_kerja.jam_keluar')
+        ->get();
+        return view('pages.Jam-Kerja.ubahJamKerja',compact('data','divisi'));
     }
 
     public function store(Request $request){
@@ -35,5 +50,24 @@ class JamKerjaController extends Controller
         $jamkerja->save();
 
         return redirect('/jam-kerja')->with('success', 'Jam Kerja telah berhasil ditambah!');
+    }
+
+    public function update(Request $request,$id){
+        
+        $jamkerja = jamkerja::find($id);
+        $jamkerja->divisi_id = $request->divisi;
+        $jamkerja->jam_masuk = $request->jam_mulai;
+        $jamkerja->jam_keluar = $request->jam_selesai;
+
+        $jamkerja->save();
+
+        return redirect('/jam-kerja')->with('success', 'Divisi telah berhasil diubah');
+    }
+
+    public function destroy($id)
+    {
+        $jamkerja = jamkerja::find($id);
+        $jamkerja->delete();
+        return redirect('/jam-kerja')->with('success', 'Data Berhasil Di Hapus');
     }
 }
