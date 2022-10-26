@@ -23,7 +23,6 @@
 
     <!-- Custom styles for this template-->
     <link href="{{url('template-backoffice/css/sb-admin-2.min.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <link href="{{url('template-backoffice/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 
 </head>

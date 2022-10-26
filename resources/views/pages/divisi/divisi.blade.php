@@ -3,7 +3,7 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Tambah Divisi Karyawan</h1>
     <a href="/divisi/tambah" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i
-        class="fas fa-plus fa-sm text-white-50"></i>Tambah Data Karyawan</a>
+        class="fas fa-plus fa-sm text-white-50"></i>Tambah Data Divisi</a>
 </div>
 
 <div class="card shadow mb-4">

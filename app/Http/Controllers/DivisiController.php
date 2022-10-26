@@ -23,12 +23,12 @@ class DivisiController extends Controller
 
     public function store(Request $request){
 
-        // $request->validate([
-        //     'kodedivisi' => 'required',
-        //     'namadivisi' => 'required'
-        // ]);
-
+        $request->validate([
+            'kodedivisi' => 'required',
+            'namadivisi' => 'required'
+        ]);
         $divisi = new divisi;
+
         $divisi->nama_divisi = $request->namadivisi;
         $divisi->kode_divisi = $request->kodedivisi;
 
@@ -36,6 +36,7 @@ class DivisiController extends Controller
 
         return redirect('/divisi')->with('success', 'Divisi telah berhasil ditambah!'); 
     }
+    
 
     public function edit($id){
 

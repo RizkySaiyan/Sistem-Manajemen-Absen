@@ -38,7 +38,7 @@ Route::get('/divisi',[C\DivisiController::class,'index']);
 Route::get('/divisi/tambah',[C\DivisiController::class,'create']);
 Route::get('/divisi/edit/{id}',[C\DivisiController::class,'edit']);
 Route::post('/divisi',[C\DivisiController::class,'store']);
-Route::post('/divisi',[C\DivisiController::class,'update']);
+Route::post('/divisi/update/{id}',[C\DivisiController::class,'update']);
 Route::post('/divisi/destroy/{id}',[C\DivisiController::class,'destroy']);
 
 Route::get('/jam-kerja',[C\JamKerjaController::class,'index']);
