@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class divisi extends Model
+class golongan extends Model
 {
-    protected $table = 'divisi';
+    protected $table = 'golongan';
     public $timestamps = false;
     use HasFactory;
 }

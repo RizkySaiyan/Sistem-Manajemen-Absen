@@ -9,5 +9,9 @@ class jamkerja extends Model
 {
     protected $table = 'waktu_kerja';
     public $timestamps = false;
+
+    public function divisi(){
+        return $this->hasMany(divisi::class);
+    }
     use HasFactory;
 }

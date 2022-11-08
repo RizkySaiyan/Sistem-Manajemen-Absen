@@ -23,6 +23,10 @@
                   </div>
             </div>
             <div class="form-group">
+                <label for="nama">NIK</label>
+                <input type="text" class="form-control" name="nik">
+            </div>
+            <div class="form-group">
                 <label for="nama">Nama Karyawan</label>
                 <input type="text" class="form-control" name="nama_karyawan">
             </div>

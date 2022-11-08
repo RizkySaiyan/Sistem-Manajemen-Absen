@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
      integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
      crossorigin=""/>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link href="{{url('template-backoffice/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet"
         type="text/css">
     <link
@@ -82,6 +83,13 @@
                 <a class="nav-link" href="/karyawan">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Data Karyawan</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/golongan">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Golongan</span>
                 </a>
             </li>
 

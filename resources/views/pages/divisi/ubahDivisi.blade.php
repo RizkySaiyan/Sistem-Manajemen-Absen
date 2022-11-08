@@ -10,7 +10,7 @@
         <h6 class="m-0 font-weight-bold text-primary">Form Divisi</h6>
     </div>
     <div class="card-body">
-        <form action="/divisi" method="post">
+        <form action="/divisi/update/{{$divisi->id}}" method="post">
             @csrf
             <input type="hidden" name="id" value="{{$divisi->id}}">
             <div class="form-group">

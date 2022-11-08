@@ -13,11 +13,11 @@
                 <button class="btn btn-primary" onclick="openCam()">Open Camera</button>
                 <div id="camera"></div>
                 <button class="btn btn-primary" style="display: none" id="cameraBtn" onclick="take_picture()"><i class="fa fa-fw fa-camera"></i></button>
-                <div id="results">
-
+                <hr>
+                <div id="results" class="m-0">
                 </div>
-                <div id="map" style="height:180px;">
-
+                <hr>
+                <div id="map" style="height:500px;">
                 </div>
             </div>
         </div>
@@ -28,10 +28,18 @@
                 <h6 class="m-0 font-weight-bold text-primary">Ini Content</h6>
             </div>
             <div class="card-body">
-                <button class="btn btn-primary" onclick="openCam()">Open Camera</button>
-                <div id="camera"></div>
-                <button class="btn btn-primary" style="display: none" id="cameraBtn" onclick="take_picture()"><i class="fa fa-fw fa-camera"></i></button>
-                <div id="results"></div>
+                <div class="form-group">
+                    <label for="Kode">Nama Divisi</label>
+                    <input type="text" class="form-control" name="divisi" value="IT Staff" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="inputNoRekening">Nama Karyawan</label>
+                    <input type="text" class="form-control" name="user" value="Beebo" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="Kode">Jam</label>
+                    <input type="time" class="form-control" name="jam" value="IT Staff" readonly>
+                </div>
             </div>
         </div>
     </div>
@@ -44,7 +52,7 @@
                 width:350,
                 height:300,
                 image_format: 'jpeg',
-                jpeg_quality: 90
+                jpeg_quality: 100
             });
         
         Webcam.attach('#camera');
@@ -55,7 +63,7 @@
     }
     function take_picture() {
 
-        Webcam.snap( function(picture_data) {
+        Webcam.snap(function(picture_data) {
 
             // display results in page
             document.getElementById('results').innerHTML = 
@@ -67,7 +75,7 @@
     var map = L.map('map').setView([-8.409518, 115.188919], 13);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
+    maxZoom: 10,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
     </script>

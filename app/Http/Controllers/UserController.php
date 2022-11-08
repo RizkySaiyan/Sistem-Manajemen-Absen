@@ -45,6 +45,7 @@ class UserController extends Controller
         $user->alamat = $request->alamat;
         $user->notelp = $request->notelp;
         $user->email = $request->email;
+        $user->nik = $request->nik;
         $user->save();
 
         return redirect('/karyawan')->with('success', 'Karyawan telah berhasil ditambah!'); 
@@ -66,6 +67,7 @@ class UserController extends Controller
         $user->alamat = $request->alamat;
         $user->notelp = $request->notelp;
         $user->email = $request->email;
+        $user->nik = $request->nik;
         $user->save();
 
         return redirect('/karyawan')->with('success', 'Karyawan telah berhasil diubah');

@@ -34,7 +34,7 @@ class DivisiController extends Controller
 
         $divisi->save();
 
-        return redirect('/divisi')->with('success', 'Divisi telah berhasil ditambah!'); 
+        return redirect('/divisi')->with('flash-message', 'Divisi telah berhasil ditambah!'); 
     }
     
 
@@ -52,6 +52,13 @@ class DivisiController extends Controller
         $divisi->kode_divisi = $request->kodedivisi;
         $divisi->save();
 
-        return redirect('/divisi')->with('success', 'Divisi telah berhasil diubah');
+        return redirect('/divisi')->with('flash-message', 'Divisi telah berhasil diubah');
+    }
+
+    public function destroy($id)
+    {
+        $divisi = divisi::find($id);
+        $divisi->delete();
+        return redirect('/divisi')->with('flash-message', 'Data Berhasil Di Hapus');
     }
 }
