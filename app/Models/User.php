@@ -26,6 +26,14 @@ class User extends Authenticatable
     // protected $fillable = ['nama_divisi','kode_divisi'];
     public $timestamps = false;
 
+    public function divisi(){
+        return $this->belongsTo(divisi::class);
+    }
+
+    public function absensi(){
+        return $this->belongsTo(absensi::class);
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

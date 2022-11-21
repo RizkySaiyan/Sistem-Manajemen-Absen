@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class absensi extends Model
 {
     protected $table = 'absensi';
-    public $timestamps = false;
+    
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
     use HasFactory;
 }

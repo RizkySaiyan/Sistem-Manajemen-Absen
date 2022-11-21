@@ -6,17 +6,41 @@ use Illuminate\Http\Request;
 use App\Models\divisi;
 use App\Models\jamkerja;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
 
     public function profil(){
 
+        $id = Auth::user()->id;
+        $user = User::find($id);
         $user = User::paginate(10);
         return view('pages.Profil.profil')->with([
             'data' => $user
         ]);
+    }
+    public function profil_update(Request $request){
+
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        $user->name = $request->nama;
+        $user->nik = $request->nik;
+        $user->email = $request->email;
+        $user->notelp = $request->notelp;
+        if($request->file('foto')){
+            $file = $request->file('foto');
+            $folderPath = "public/profil/";
+            $fileNameWExt = $file->getClientOriginalName();
+            $filename = pathinfo($fileNameWExt,PATHINFO_FILENAME);
+            $ext = $file->getClientOriginalExtension();
+            $filesave = $filename.'.'.$ext;
+            $path = $file->storeAs($folderPath,$filesave);
+            $user->path_gambar = $folderPath.$filesave;
+        }
+        $user->save();
+        return redirect('/profil')->with('flash-message','Berhasil Update Profil');
     }
 
     public function karyawan(){

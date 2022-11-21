@@ -18,12 +18,14 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('alamat');
             $table->string('notelp');
+            $table->string('nik');
             $table->foreignId('divisi_id');
-            $table->foreignId('golongan_id');
+            $table->foreignId('golongan_id')->nullable();
             $table->string('email');
             $table->string('username')->unique();
             $table->string('password');
-            $table->string('path_gambar');
+            $table->string('path_gambar')->nullable();
+            $table->string('role');
             $table->rememberToken();
         });
     }

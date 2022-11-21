@@ -19,11 +19,12 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) 
         {
-            return redirect('/')->with('success', 'Login sukses!');
+            $request->session()->regenerate();
+            return redirect('/')->with('flash-message', 'Login sukses!');
         }
         else
         {
-            return redirect()->back()->with('failed', 'Login gagal, username atau password salah!');
+            return redirect()->back()->with('flash-message', 'Login gagal, username atau password salah!');
         }
     }
 }

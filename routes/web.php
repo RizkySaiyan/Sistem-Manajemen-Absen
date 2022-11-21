@@ -17,14 +17,15 @@ use App\Http\Controllers as C;
 
 Route::get('/', function () {
     return view('pages/dashboard');
-});
+})->middleware('auth');
 
 Route::post('/login', [C\LoginController::class,'authenticate'])->name('login');
 Route::get('/login', [C\LoginController::class,'index']);
 //profile
-Route::get('/profil',[C\UserController::class,'index']);
+Route::get('/profil',[C\UserController::class,'profil']);
+Route::post('/profil',[C\UserController::class,'profil_update']);
 
-Route::get('/karyawan',[C\UserController::class,'karyawan']);
+Route::get('/karyawan',[C\UserController::class,'karyawan'])->middleware('auth');
 Route::get('/karyawan/tambah',[C\UserController::class,'create']);
 Route::get('/karyawan/ubah',[C\UserController::class,'edit']);
 Route::post('/karyawan',[C\UserController::class,'store']);
@@ -32,23 +33,24 @@ Route::post('/karyawan/update/{id}',[C\UserController::class,'update']);
 Route::post('/karyawan/destroy/{id}',[C\UserController::class,'destroy']);
 
 
-Route::get('/absen',[C\AbsensiController::class,'index']);
+Route::get('/absen',[C\AbsensiController::class,'index'])->middleware('auth');
+Route::post('/absen',[C\AbsensiController::class,'store'])->middleware('auth');
 
-Route::get('/divisi',[C\DivisiController::class,'index']);
+Route::get('/divisi',[C\DivisiController::class,'index'])->middleware('auth');
 Route::get('/divisi/tambah',[C\DivisiController::class,'create']);
 Route::get('/divisi/edit/{id}',[C\DivisiController::class,'edit']);
 Route::post('/divisi',[C\DivisiController::class,'store']);
 Route::post('/divisi/update/{id}',[C\DivisiController::class,'update']);
 Route::post('/divisi/destroy/{id}',[C\DivisiController::class,'destroy']);
 
-Route::get('/golongan',[C\GolonganController::class,'index']);
+Route::get('/golongan',[C\GolonganController::class,'index'])->middleware('auth');
 Route::get('/golongan/tambah',[C\GolonganController::class,'create']);
 Route::get('/golongan/edit/{id}',[C\GolonganController::class,'edit']);
 Route::post('/golongan',[C\GolonganController::class,'store']);
 Route::post('/golongan/update/{id}',[C\GolonganController::class,'update']);
 Route::post('/golongan/destroy/{id}',[C\GolonganController::class,'destroy']);
 
-Route::get('/jam-kerja',[C\JamKerjaController::class,'index']);
+Route::get('/jam-kerja',[C\JamKerjaController::class,'index'])->middleware('auth');
 Route::get('/jam-kerja/tambah',[C\JamKerjaController::class,'create']);
 Route::get('/jam-kerja/edit/{id}',[C\JamKerjaController::class,'edit']);
 Route::post('/jam-kerja',[C\JamKerjaController::class,'store']);

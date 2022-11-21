@@ -3,6 +3,8 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Absensi</h1>
 </div>
+<form action="/absen" method="post" enctype="multipart/form-data">
+    @csrf
 <div class="row">
     <div class="col-lg-6">
         <div class="card shadow mb-4">
@@ -10,11 +12,15 @@
                 <h6 class="m-0 font-weight-bold text-primary">Ini Content</h6>
             </div>
             <div class="card-body">
-                <button class="btn btn-primary" onclick="openCam()">Open Camera</button>
+                <button class="btn btn-primary" type="button" onclick="openCam()">Open Camera</button>
                 <div id="camera"></div>
-                <button class="btn btn-primary" style="display: none" id="cameraBtn" onclick="take_picture()"><i class="fa fa-fw fa-camera"></i></button>
+                <button class="btn btn-primary" type="button" style="display: none" id="cameraBtn" onclick="take_picture()"><i
+                        class="fa fa-fw fa-camera"></i></button>
                 <hr>
-                <div id="results" class="m-0">
+                <div class="container-result">
+                    <div id="results" class="m-0">
+                    </div>
+                    <button class="btn btn-danger" type="button" style="display:none;" id="deleteResult" onclick="delete_result()"><i class="fa fa-fw fa-trash"></i></button>
                 </div>
                 <hr>
                 <div id="map" style="height:500px;">
@@ -28,55 +34,132 @@
                 <h6 class="m-0 font-weight-bold text-primary">Ini Content</h6>
             </div>
             <div class="card-body">
-                <div class="form-group">
-                    <label for="Kode">Nama Divisi</label>
-                    <input type="text" class="form-control" name="divisi" value="IT Staff" readonly>
+                @foreach ($absensi as $item)
+                    
+                @endforeach
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label for="Kode">Nama Divisi</label>
+                        <input type="text" class="form-control mb-2" name="divisi" value="{{$user->divisi->nama_divisi}}" readonly>
+                    </div>
+                    <div class="col-lg-12">
+                        <label for="inputNoRekening">Nama Karyawan</label>
+                        <input type="text" class="form-control mb-2" name="user" value="{{$user->name}}" readonly>
+                    </div>
+                    <div class="col-lg-12">
+                        <label for="Kode">Jam</label>
+                        <input type="time" class="form-control" id="jam" name="jam" readonly>
+
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="Kode">Latitude</label>
+                        <input type="text" class="form-control" id="latitude" name="latitude" readonly>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="Kode">Longitude</label>
+                        <input type="text" class="form-control" id="longitude" name="longitude" readonly>
+                    </div>     
                 </div>
-                <div class="form-group">
-                    <label for="inputNoRekening">Nama Karyawan</label>
-                    <input type="text" class="form-control" name="user" value="Beebo" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="Kode">Jam</label>
-                    <input type="time" class="form-control" name="jam" value="IT Staff" readonly>
+                <input type="hidden" id="keterangan" name="keterangan" class="form-control" readonly>
+                <div id="absen">
+                   
                 </div>
             </div>
         </div>
     </div>
 </div>
+</form>
 @endsection
 @section('js')
 <script>
-    function openCam(){
+    document.getElementById('latitude').value = -8.670633204301815 ;
+    document.getElementById('longitude').value = 115.20677501572176;
+    function openCam() {
         Webcam.set({
-                width:350,
-                height:300,
-                image_format: 'jpeg',
-                jpeg_quality: 100
-            });
-        
+            width: 300,
+            height: 300,
+            image_format: 'jpeg',
+            jpeg_quality: 100
+        });
+
         Webcam.attach('#camera');
-        
+
         const buttonCam = document.querySelector('#cameraBtn');
-        console.log(buttonCam);
-        buttonCam.style.display='block'
+        
+        buttonCam.style.display = 'block'
     }
+    
+    const padTo2Digits = (num) => {
+        if (typeof num === 'string') return num.padStart(2, '0')
+        return num.toString().padStart(2, '0')
+    }
+
     function take_picture() {
 
-        Webcam.snap(function(picture_data) {
+        const showImg = document.querySelector('#results');
+        const jam = $("#jam");
+        const jam_masuk = $("#jam_masuk");
+        const jam_keluar = $("#jam_keluar");
+        const absen = $("#absen");
+        const keterangan = $("#keterangan");
+        Webcam.snap(function (picture_data) {
 
             // display results in page
-            document.getElementById('results').innerHTML = 
-            '<img src="'+picture_data+'"/>';
+            const base64image = document.getElementById('results').src;
+            document.getElementById('results').innerHTML =
+                '<img src="' + picture_data + '"/> <input type="hidden" name="foto" value = "'+ picture_data +'">'
 
-        } );
+        });
+        deleteResult.style.display = 'block'
+        showImg.style.display = 'block'
+        absen.attr("style","display:block")
+        
+        const date = new Date();
+        const hours = padTo2Digits(date.getHours());
+        const minutes = padTo2Digits(date.getMinutes());
+        jam.val(`${hours}:${minutes}`);
+        
+        if(jam_masuk.val()){
+            keterangan.val("Keluar")
+            absen.html("<button type='submit' class='btn btn-success mt-2'  id='absen' style='display:block;'>Absen Keluar</button>")
+        }
+        else{
+            keterangan.val("Masuk")
+            absen.html("<button type='submit' class='btn btn-success mt-2'  id='absen' style='display:block;'>Absen Masuk</button>")
+        }
     }
 
-    var map = L.map('map').setView([-8.409518, 115.188919], 13);
+    function delete_result(){
 
+        const deleteImg = document.querySelector('#results');
+
+        deleteImg.style.display = 'none'
+        deleteResult.style.display = 'none'
+     }
+
+    var map = L.map('map').setView([-8.670633204301815, 115.20677501572176], 14);
+    
+ 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 10,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
-    </script>
+        maxZoom: 14,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    
+    var marker = L.marker([-8.670633204301815, 115.20677501572176],{
+        draggable: true
+    }).addTo(map);
+
+
+//get latitude and longitude
+  marker.on('dragend', function (e) {
+  document.getElementById('latitude').value = marker.getLatLng().lat;
+  document.getElementById('longitude').value = marker.getLatLng().lng;
+});
+@if(Session::has('flash-message'))
+    swal({
+        title : "{{Session::get('flash-message')}}",
+        icon  : "success"
+    })
+@endif
+</script>
 @endsection

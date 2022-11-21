@@ -9,5 +9,9 @@ class divisi extends Model
 {
     protected $table = 'divisi';
     public $timestamps = false;
+
+    public function user(){
+        return $this->hasMany(User::class);
+    }
     use HasFactory;
 }

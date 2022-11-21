@@ -22,7 +22,9 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('123456'),
                 'divisi_id' => 1,
                 'golongan_id' => 1,
-                'email' => 'bibomurphy@gmail.com'
+                'email' => 'bibomurphy@gmail.com',
+                'nik' => '134124234',
+                'role' => 'admin'
             ],
         ];
 

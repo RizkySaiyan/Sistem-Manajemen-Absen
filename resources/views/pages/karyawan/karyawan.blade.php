@@ -42,3 +42,14 @@
     </div>
 </div>
 @endsection
+@section('js')
+<script>
+@if(Session::has('flash-message'))
+    swal({
+        title : "{{Session::get('flash-message')}}",
+        icon  : "success"
+    })
+@endif
+
+</script>
+@endsection

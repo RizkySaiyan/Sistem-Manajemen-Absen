@@ -22,10 +22,6 @@ class GolonganController extends Controller
 
     public function store(Request $request){
 
-        $request->validate([
-            'kodedivisi' => 'required',
-            'namadivisi' => 'required'
-        ]);
 
         $golongan = new golongan;
 
