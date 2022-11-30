@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
-
+use Carbon\Carbon;
 class AbsensiController extends Controller
 {
     public function __construct()
@@ -17,16 +17,30 @@ class AbsensiController extends Controller
     }
     
     public function index(){
+        $now = Carbon::now();
+
         $id = Auth::user()->id;
         $absensi = absensi::where('user_id','=',$id)
+        ->whereDate('created_at','=',$now->toDateString())
+        ->orderBy('created_at','desc')
         ->first();
 
+        $absensi_check = absensi::where('user_id','=',$id)
+        ->whereDate('created_at','=',$now->toDateString())
+        ->orderBy('created_at','desc')
+        ->get()
+        ->toArray();
+
+        $keterangan = (isset($absensi->keterangan) && $absensi->keterangan == 'Masuk') ? 'Keluar': 'Masuk';
+        
         if(empty($absensi)){
             $absensi = [];
         };
-        
+
+
+        // dd(count($absensi_check));
         $user = User::find($id);
-        return view('pages.absen.absensi', compact('absensi','user'));
+        return view('pages.absen.absensi', compact('absensi','user','keterangan','absensi_check'));
     }
 
     public function store(Request $request){
@@ -54,6 +68,24 @@ class AbsensiController extends Controller
         $absensi->save();
 
         return redirect('/absen')->with('flash-message', 'Berhasil melakukan absen');
+    }
+
+    public function rekap(Request $request){
+        $id = Auth::user()->id;
+        // $now = Carbon::now();
+        // dd($request->bulan,$request->tahun);
+        $absensi = absensi::where('user_id','=',$id)
+        ->WhereMonth('created_at','=',$request->bulan)
+        ->WhereYear('created_at','=',$request->tahun)
+        ->orderBy('created_at','desc')
+        ->get();
+
+        // ->toArray();
+        
+        
+        $user = User::find($id);
+
+        return view('pages.absen.rekap-absensi',compact('absensi','user'));
     }
 
 }

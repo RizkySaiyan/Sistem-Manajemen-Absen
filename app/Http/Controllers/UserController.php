@@ -70,6 +70,7 @@ class UserController extends Controller
         $user->notelp = $request->notelp;
         $user->email = $request->email;
         $user->nik = $request->nik;
+        $user->role = 'Staff';
         $user->save();
 
         return redirect('/karyawan')->with('success', 'Karyawan telah berhasil ditambah!'); 

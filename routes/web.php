@@ -35,6 +35,7 @@ Route::post('/karyawan/destroy/{id}',[C\UserController::class,'destroy']);
 
 Route::get('/absen',[C\AbsensiController::class,'index'])->middleware('auth');
 Route::post('/absen',[C\AbsensiController::class,'store'])->middleware('auth');
+Route::get('/absen-rekap',[C\AbsensiController::class,'rekap'])->middleware('auth');
 
 Route::get('/divisi',[C\DivisiController::class,'index'])->middleware('auth');
 Route::get('/divisi/tambah',[C\DivisiController::class,'create']);

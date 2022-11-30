@@ -60,9 +60,13 @@
                         <input type="text" class="form-control" id="longitude" name="longitude" readonly>
                     </div>     
                 </div>
-                <input type="hidden" id="keterangan" name="keterangan" class="form-control" readonly>
-                <div id="absen">
-                   
+                <input type="hidden" id="keterangan" name="keterangan" value="{{$keterangan}}" class="form-control" readonly>
+                <div>
+                    @if(count($absensi_check) == 2)
+                        <button type='submit' class='btn btn-success mt-2'  id='absen' style='display:none;' disabled>Absen {{$keterangan}}</button>
+                    @else
+                        <button type='submit' class='btn btn-success mt-2'  id='absen' style='display:none;'>Absen {{$keterangan}}</button>
+                    @endif
                 </div>
             </div>
         </div>
@@ -119,14 +123,12 @@
         const minutes = padTo2Digits(date.getMinutes());
         jam.val(`${hours}:${minutes}`);
         
-        if(jam_masuk.val()){
-            keterangan.val("Keluar")
-            absen.html("<button type='submit' class='btn btn-success mt-2'  id='absen' style='display:block;'>Absen Keluar</button>")
-        }
-        else{
-            keterangan.val("Masuk")
-            absen.html("<button type='submit' class='btn btn-success mt-2'  id='absen' style='display:block;'>Absen Masuk</button>")
-        }
+        // if(keterangan.val("Masuk")){
+        //     absen.html("<button type='submit' class='btn btn-success mt-2'  id='absen' style='display:block;'>Absen Masuk</button>")
+        // }
+        // else{
+        //     absen.html("<button type='submit' class='btn btn-success mt-2'  id='absen' style='display:block;'>Absen Keluar</button>")
+        // }
     }
 
     function delete_result(){
