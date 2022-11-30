@@ -23,7 +23,7 @@
                     @foreach ($data as $item)
                         <tr>
                             <td>{{$item->name}}</td>
-                            <td>{{$item->alamat}}</td>
+                            <td>{{$item->divisi->nama_divisi}}</td>
                             <form action="/karyawan/destroy" method="post">
                                 <td>
                                     <a href="/karyawan/edit/{{$item->id}}" class="btn btn-success">
