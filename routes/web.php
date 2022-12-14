@@ -28,7 +28,7 @@ Route::post('/profil',[C\UserController::class,'profil_update']);
 
 Route::get('/karyawan',[C\UserController::class,'karyawan'])->middleware('auth');
 Route::get('/karyawan/tambah',[C\UserController::class,'create']);
-Route::get('/karyawan/ubah',[C\UserController::class,'edit']);
+Route::get('/karyawan/edit/{id}',[C\UserController::class,'edit']);
 Route::post('/karyawan',[C\UserController::class,'store']);
 Route::post('/karyawan/update/{id}',[C\UserController::class,'update']);
 Route::post('/karyawan/destroy/{id}',[C\UserController::class,'destroy']);

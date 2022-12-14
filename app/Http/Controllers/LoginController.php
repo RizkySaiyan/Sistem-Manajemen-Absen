@@ -20,7 +20,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) 
         {
             $request->session()->regenerate();
-            return redirect('/')->with('flash-message', 'Login sukses!');
+            return redirect('/profil')->with('flash-message', 'Login sukses!');
         }
         else
         {

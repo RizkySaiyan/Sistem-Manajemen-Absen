@@ -76,7 +76,8 @@ class UserController extends Controller
     public function edit($id){
 
         $user = user::find($id);
-        return view('pages.karyawan.ubahKaryawan',compact('user'));
+        $divisi = divisi::all();
+        return view('pages.karyawan.ubahKaryawan',compact('user','divisi'));
     }
 
     public function update(Request $request,$id){

@@ -2,7 +2,7 @@
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Karyawan</h1>
-    <a href="/jam-kerja" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i
+    <a href="/karyawan" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i
         class="fas fa-arrow-left fa-sm text-white-50"></i>Kembali</a>
 </div>
 <div class="card shadow mb-4">
@@ -24,27 +24,27 @@
             </div>
             <div class="form-group">
                 <label for="nama">NIK</label>
-                <input type="text" class="form-control" name="nik">
+                <input type="text" class="form-control" name="nik" value="{{$user->nik}}">
             </div>
             <div class="form-group">
                 <label for="nama">Nama Karyawan</label>
-                <input type="text" class="form-control" name="nama_karyawan">
+                <input type="text" class="form-control" name="nama_karyawan" value="{{$user->name}}">
             </div>
             <div class="form-group">
                 <label for="divisi">username</label>
-                <input type="text" class="form-control" name="username">
+                <input type="text" class="form-control" name="username" value="{{$user->username}}">
             </div>
             <div class="form-group">
                 <label for="divisi">Alamat</label>
-                <input type="text" class="form-control" name="alamat">
+                <input type="text" class="form-control" name="alamat" value="{{$user->alamat}}">
             </div>
             <div class="form-group">
                 <label for="divisi">Email</label>
-                <input type="text" class="form-control" name="email">
+                <input type="text" class="form-control" name="email" value="{{$user->email}}">
             </div>
             <div class="form-group">
                 <label for="divisi">Nomor Telepon</label>
-                <input type="text" class="form-control" name="notelp">
+                <input type="text" class="form-control" name="notelp" value="{{$user->notelp}}">
             </div>
             <button type="submit" class="btn btn-dark px-3">Ubah Data</button> 
         </form>
