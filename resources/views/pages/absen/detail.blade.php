@@ -9,23 +9,16 @@
     <div class="col-lg-6">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Lokasi</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Ini Content</h6>
             </div>
             <div class="card-body">
-                <h2>Maps</h2>
-                <div id="map" style="height:400px;">
-                </div>
-                <button type="button" class="btn btn-danger mt-4" id="location" onclick="get_current_location()">Cek Lokasi Terkini</button>
-                <hr>
-                <h2>Foto Absen</h2>
-                <button class="btn btn-primary" type="button" onclick="openCam()">Open Camera</button>
-                <div id="camera"></div>
-                <button class="btn btn-primary mb-2" type="button" style="display: none" id="cameraBtn" onclick="take_picture()"><i
-                        class="fa fa-fw fa-camera"></i></button>
                 <div class="container-result">
-                    <div id="results" class="m-0">
+                    <div class="card mx-auto">
+                        <img src="{{asset("{$absensi->foto_kunjungan}")}}" alt="">
                     </div>
-                    <button class="btn btn-danger" type="button" style="display:none;" id="deleteResult" onclick="delete_result()"><i class="fa fa-fw fa-trash"></i></button>
+                </div>
+                <hr>
+                <div id="map" style="height:500px;">
                 </div>
             </div>
         </div>
@@ -33,12 +26,9 @@
     <div class="col-lg-6">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Informasi User</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Ini Content</h6>
             </div>
             <div class="card-body">
-                @foreach ($absensi as $item)
-                    
-                @endforeach
                 <div class="row">
                     <div class="col-lg-12">
                         <label for="Kode">Nama Divisi</label>
@@ -50,25 +40,21 @@
                     </div>
                     <div class="col-lg-12">
                         <label for="Kode">Jam</label>
-                        <input type="time" class="form-control" id="jam" name="jam" readonly>
+                        <input type="time" class="form-control" id="jam" name="jam" value="{{$absensi->jam}}" readonly>
 
                     </div>
                     <div class="col-lg-6">
                         <label for="Kode">Latitude</label>
-                        <input type="text" class="form-control" id="latitude" name="latitude" readonly>
+                        <input type="text" class="form-control" id="latitude" name="latitude" value="{{$absensi->latitude}}"readonly>
                     </div>
                     <div class="col-lg-6">
                         <label for="Kode">Longitude</label>
-                        <input type="text" class="form-control" id="longitude" name="longitude" readonly>
-                    </div>     
-                </div>
-                <input type="hidden" id="keterangan" name="keterangan" value="{{$keterangan}}" class="form-control" readonly>
-                <div>
-                    @if(count($absensi_check) == 2)
-                        <button type='submit' class='btn btn-success mt-2'  id='absen' style='display:none;' disabled>Absen {{$keterangan}}</button>
-                    @else
-                        <button type='submit' class='btn btn-success mt-2'  id='absen' style='display:none;'>Absen {{$keterangan}}</button>
-                    @endif
+                        <input type="text" class="form-control" id="longitude" name="longitude" value="{{$absensi->longitude}}" readonly>
+                    </div>
+                    <div class="col-lg-12">
+                        <label for="Kode">Keterangan</label>     
+                        <input type="text" class="form-control" id="keterangan" name="keterangan" value="{{$keterangan}}" class="form-control" readonly>
+                    </div>
                 </div>
             </div>
         </div>
@@ -78,8 +64,6 @@
 @endsection
 @section('js')
 <script>
-    document.getElementById('latitude').value = -8.670633204301815 ;
-    document.getElementById('longitude').value = 115.20677501572176;
     function openCam() {
         Webcam.set({
             width: 300,
@@ -132,7 +116,7 @@
         //     absen.html("<button type='submit' class='btn btn-success mt-2'  id='absen' style='display:block;'>Absen Keluar</button>")
         // }
     }
-   
+
     function delete_result(){
 
         const deleteImg = document.querySelector('#results');
@@ -140,8 +124,9 @@
         deleteImg.style.display = 'none'
         deleteResult.style.display = 'none'
      }
-
-    var map = L.map('map').setView([-8.670633204301815, 115.20677501572176], 14);
+    const lat = $("#latitude")
+    const long = $("#longitude")
+    var map = L.map('map').setView([lat.val(),long.val()], 14);
     
  
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -149,25 +134,14 @@
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
     
+    var marker = L.marker([lat.val(),long.val()]).addTo(map);
 
-
-    
 
 //get latitude and longitude
   marker.on('dragend', function (e) {
   document.getElementById('latitude').value = marker.getLatLng().lat;
   document.getElementById('longitude').value = marker.getLatLng().lng;
 });
-
-    function get_current_location(){
-        const location = $("#location")
-        navigator.geolocation.getCurrentPosition(function(location) {
-        var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
-        console.log(latlng)
-        marker = L.marker(latlng).addTo(map)
-        map.setView(latlng,14,{animation : true})
-        })}
-
 @if(Session::has('flash-message'))
     swal({
         title : "{{Session::get('flash-message')}}",

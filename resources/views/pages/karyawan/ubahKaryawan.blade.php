@@ -23,6 +23,10 @@
                   </div>
             </div>
             <div class="form-group">
+                <label for="nama">NIK</label>
+                <input type="text" class="form-control" name="nik">
+            </div>
+            <div class="form-group">
                 <label for="nama">Nama Karyawan</label>
                 <input type="text" class="form-control" name="nama_karyawan">
             </div>
@@ -42,7 +46,7 @@
                 <label for="divisi">Nomor Telepon</label>
                 <input type="text" class="form-control" name="notelp">
             </div>
-            <button type="submit" class="btn btn-dark px-3">Tambah Data</button> 
+            <button type="submit" class="btn btn-dark px-3">Ubah Data</button> 
         </form>
     </div>
 </div>

@@ -16,10 +16,7 @@ class UserController extends Controller
 
         $id = Auth::user()->id;
         $user = User::find($id);
-        $user = User::paginate(10);
-        return view('pages.Profil.profil')->with([
-            'data' => $user
-        ]);
+        return view('pages.Profil.profil',compact('user'));
     }
     public function profil_update(Request $request){
 
@@ -31,13 +28,13 @@ class UserController extends Controller
         $user->notelp = $request->notelp;
         if($request->file('foto')){
             $file = $request->file('foto');
-            $folderPath = "public/profil/";
+            $folderPath = "storage/profil/";
             $fileNameWExt = $file->getClientOriginalName();
             $filename = pathinfo($fileNameWExt,PATHINFO_FILENAME);
             $ext = $file->getClientOriginalExtension();
             $filesave = $filename.'.'.$ext;
             $path = $file->storeAs($folderPath,$filesave);
-            $user->path_gambar = $folderPath.$filesave;
+            $user->path_gambar = 'storage/profil/'.$filesave;
         }
         $user->save();
         return redirect('/profil')->with('flash-message','Berhasil Update Profil');

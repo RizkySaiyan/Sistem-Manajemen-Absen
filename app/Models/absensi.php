@@ -13,6 +13,9 @@ class absensi extends Model
         return $this->belongsTo(User::class);
     }
     
+    public function scopeKeterangan($query,$value){
+        return $query->where('keterangan','=',$value);
+    }
     
     use HasFactory;
 }

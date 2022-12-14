@@ -27,4 +27,10 @@ class LoginController extends Controller
             return redirect()->back()->with('flash-message', 'Login gagal, username atau password salah!');
         }
     }
+
+    public function logout()
+    {
+            Auth::logout();
+            return redirect('/login')->with('logout', 'Log Out sukses!');
+    }
 }

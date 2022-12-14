@@ -53,7 +53,7 @@ class AbsensiController extends Controller
         $absensi->longitude = $request->longitude;
         if($request->foto){
         $img = $request->foto;
-        $folderPath = "public/absen_foto/";
+        $folderPath = "storage/absen_foto/";
         
         $image_parts = explode(";base64,", $img);
         $image_type_aux = explode("image/", $image_parts[0]);
@@ -74,18 +74,42 @@ class AbsensiController extends Controller
         $id = Auth::user()->id;
         // $now = Carbon::now();
         // dd($request->bulan,$request->tahun);
+        $keterangan = $request->absen;
+        $bulan_params = $request->bulan;
+        $tahun_params = $request->tahun;
+
         $absensi = absensi::where('user_id','=',$id)
         ->WhereMonth('created_at','=',$request->bulan)
         ->WhereYear('created_at','=',$request->tahun)
         ->orderBy('created_at','desc')
         ->get();
-
+        
+        if(isset($keterangan)){
+           $absensi = absensi::keterangan($keterangan)
+            ->WhereMonth('created_at','=',$request->bulan)
+            ->WhereYear('created_at','=',$request->tahun)
+            ->orderBy('created_at','desc')
+            ->get();
+        }
         // ->toArray();
         
         
         $user = User::find($id);
+        return view('pages.absen.rekap-absensi',compact('absensi','user','bulan_params','tahun_params'));
+    }
+    public function detail(Request $request,$id_detail){
+            $now = Carbon::now();
+            $id = Auth::user()->id;
 
-        return view('pages.absen.rekap-absensi',compact('absensi','user'));
+            $absensi = absensi::find($id_detail);
+            $keterangan = (isset($absensi->keterangan) && $absensi->keterangan == 'Masuk') ? 'Keluar': 'Masuk';
+            
+            if(empty($absensi)){
+                $absensi = [];
+            };
+            
+            $user = User::find($id);
+            return view('pages.absen.detail', compact('absensi','user','keterangan'));
     }
 
 }

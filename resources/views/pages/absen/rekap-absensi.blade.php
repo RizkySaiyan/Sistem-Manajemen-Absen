@@ -1,6 +1,9 @@
 @php
 use \App\helpers\Date;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+setlocale(LC_TIME, 'id_ID');
+\Carbon\Carbon::setLocale('id');
 @endphp
 @extends('layout/app')
 @section('content')
@@ -9,25 +12,38 @@ use Carbon\Carbon;
     <div class="col-xs-12 col-sm-6 ml-auto text-right">
         <form action="" method="get">
             <div class="row">
-                <div class="col">
+                <div class="col-m-3">
                     <select name="bulan" id="bulan" class="form-control">
                         <option value="" disabled selected>-- Pilih Bulan --</option>   
-                        <option value="all">Semua Bulan</option>   
-                         @foreach (Date::bulan() as $key => $bulan)
-                             <option value="{{$key}}">{{$bulan}}</option>
-                         @endforeach           
+                        <option value="">Semua Bulan</option>   
+                        @foreach (Date::bulan() as $key => $bulan)
+                            <option value="{{$key}}">{{$bulan}}</option>
+                        @if($bulan_params == $key)
+                            <option value="{{$key}}" selected>{{$bulan}}</option> 
+                        @endif 
+                        @endforeach           
                     </select>
                 </div>
-                <div class="col ">
+                <div class="col-m-3">
                     <select name="tahun" id="tahun" class="form-control">
                         <option value="" disabled selected>-- Pilih Tahun</option>
                         @for($i = date('Y'); $i >= (date('Y')-5); $i--)
                         <option value="{{$i}}">{{$i}}</option>
+                        @if($tahun_params == $i)
+                        <option value="{{$i}}" selected>{{$i}}</option>
+                        @endif
                         @endfor
                     </select>
                 </div>
-                <div class="col ">
-                    <button type="submit" class="btn btn-primary btn-fill btn-block">Tampilkan</button>
+                <div class="col-m-3">
+                    <select name="absen" id="absen" class="form-control">
+                        <option value="">Semua Absen</option>
+                        <option value="Masuk">Absen Masuk</option>
+                        <option value="Keluar">Absen Keluar</option>
+                    </select>
+                </div>
+                <div class="col-m-3">
+                    <button type="submit" class="btn btn-primary btn-fill">Tampilkan</button>
                 </div>
             </div>
         </form>
@@ -78,13 +94,13 @@ use Carbon\Carbon;
                         <th>Detail</th>
                     </thead>
                     <tbody>
-                        @foreach($absensi as $item)
+                        @foreach($absensi as $key => $item)
                         <tr>
-                            <td>1</td>
+                            <td>{{$key+1}}</td>
                             <td>{{Carbon::parse($item->created_at)->isoFormat('dddd, D MMMM Y')}}</td>
                             <td>{{$item->jam}}</td>
                             <td>{{$item->keterangan}}</td>
-                            <td><button class="btn btn-primary" id="modalfoto"><i class="fa fa-fw fa-eye"></i></button></td>
+                            <td><a href ="/detail-absen/{{$item->id}}"class="btn btn-primary"><i class="fa fa-fw fa-eye"></i></a></td>
                         </tr>
                         @endforeach
                     </tbody>    
@@ -93,4 +109,9 @@ use Carbon\Carbon;
         </div>
     </div>
 </div>
+@endsection
+@section('js')
+<script>
+
+</script>
 @endsection

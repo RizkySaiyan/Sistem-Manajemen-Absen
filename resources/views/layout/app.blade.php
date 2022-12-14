@@ -56,13 +56,13 @@
             </li>
 
             <!-- Divider -->
+            @if(Auth::user()->role == 'Admin')
             <hr class="sidebar-divider">
 
             <!-- Heading -->
             <div class="sidebar-heading">
                 Master Data
             </div>
-
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link" href="/jam-kerja">
@@ -86,13 +86,13 @@
                 </a>
             </li>
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link" href="/golongan">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Golongan</span>
                 </a>
-            </li>
-
+            </li> --}}
+@endif
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -118,13 +118,6 @@
                 <a class="nav-link" href="absen-rekap">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Rekapan Absensi</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
             </li>
 
             <!-- Divider -->
@@ -163,7 +156,7 @@
                                     Profile
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -216,7 +209,7 @@
                     <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.html">Logout</a>
+                        <a class="btn btn-primary" href="/logout">Logout</a>
                     </div>
                 </div>
             </div>

@@ -21,6 +21,7 @@ Route::get('/', function () {
 
 Route::post('/login', [C\LoginController::class,'authenticate'])->name('login');
 Route::get('/login', [C\LoginController::class,'index']);
+Route::get('/logout',  [C\LoginController::class,'logout'])->middleware('auth');
 //profile
 Route::get('/profil',[C\UserController::class,'profil']);
 Route::post('/profil',[C\UserController::class,'profil_update']);
@@ -36,6 +37,7 @@ Route::post('/karyawan/destroy/{id}',[C\UserController::class,'destroy']);
 Route::get('/absen',[C\AbsensiController::class,'index'])->middleware('auth');
 Route::post('/absen',[C\AbsensiController::class,'store'])->middleware('auth');
 Route::get('/absen-rekap',[C\AbsensiController::class,'rekap'])->middleware('auth');
+Route::get('/detail-absen/{id_detail}',[C\AbsensiController::class,'detail'])->middleware('auth');
 
 Route::get('/divisi',[C\DivisiController::class,'index'])->middleware('auth');
 Route::get('/divisi/tambah',[C\DivisiController::class,'create']);
