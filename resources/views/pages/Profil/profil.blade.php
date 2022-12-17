@@ -39,12 +39,20 @@
                     <input type="text" class="form-control" name="nama" value="{{$user->name}}">
                 </div>
                 <div class="form-group">
-                    <label for="inputNoRekening">No telp</label>
+                    <label for="">No telp</label>
                     <input type="text" class="form-control" name="notelp" value="{{$user->notelp}}">
                 </div>
                 <div class="form-group">
-                    <label for="inputNoRekening">email</label>
+                    <label for="">email</label>
                     <input type="text" class="form-control" name="email"value="{{$user->email}}">
+                </div>
+                <div class="form-group">
+                    <label for="">Username</label>
+                    <input type="text" class="form-control" name="username"value="{{$user->username}}">
+                </div>
+                <div class="form-group">
+                    <label for="">Password Baru</label>
+                    <input type="password" class="form-control" name="password">
                 </div>
                 <button type="submit" class="btn btn-success px-3">Simpan Data</button> 
             </div>

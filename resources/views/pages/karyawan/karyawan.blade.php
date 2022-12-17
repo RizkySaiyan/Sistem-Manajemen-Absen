@@ -24,7 +24,8 @@
                         <tr>
                             <td>{{$item->name}}</td>
                             <td>{{$item->divisi->nama_divisi}}</td>
-                            <form action="/karyawan/destroy" method="post">
+                            <form action="/karyawan/destroy/{{$item->id}}" method="post">
+                                @csrf
                                 <td>
                                     <a href="/karyawan/edit/{{$item->id}}" class="btn btn-success">
                                     <i class="fas fa-edit"></i>

@@ -26,6 +26,7 @@ class UserController extends Controller
         $user->nik = $request->nik;
         $user->email = $request->email;
         $user->notelp = $request->notelp;
+        $user->password = bcrypt($request->password);
         if($request->file('foto')){
             $file = $request->file('foto');
             $folderPath = "storage/profil/";
@@ -86,7 +87,7 @@ class UserController extends Controller
         $user->divisi_id = $request->divisi;
         $user->name = $request->nama_karyawan;
         $user->username = $request->username;
-        // $user->password = bcrypt('123456');
+        // $user->password = bcrypt($request->password);
         $user->alamat = $request->alamat;
         $user->notelp = $request->notelp;
         $user->email = $request->email;
@@ -100,7 +101,7 @@ class UserController extends Controller
     {
         $user = user::find($id);
         $user->delete();
-        return redirect('/user')->with('success', 'Data Berhasil Di Hapus');
+        return redirect('/karyawan')->with('success', 'Data Berhasil Di Hapus');
     }
     
 }
