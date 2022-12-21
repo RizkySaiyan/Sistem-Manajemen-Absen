@@ -23,6 +23,15 @@
                   </div>
             </div>
             <div class="form-group">
+                <label for="Divisi">Role</label>
+                <div class="input-group mb-3">
+                    <select class="custom-select" id="inputGroupSelect01" name="role">
+                      <option value ="Admin" {{$user->role == 'Admin' ? 'selected' : ''}}>Admin</option>
+                      <option value ="Staff" {{$user->role == 'Staff' ? 'selected' : ''}}>Staff</option>
+                    </select>
+                  </div>
+            </div>
+            <div class="form-group">
                 <label for="nama">NIK</label>
                 <input type="text" class="form-control" name="nik" value="{{$user->nik}}">
             </div>

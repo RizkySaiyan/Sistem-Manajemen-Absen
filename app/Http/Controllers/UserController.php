@@ -62,6 +62,7 @@ class UserController extends Controller
         
         $user = new user;
         $user->divisi_id = $request->divisi;
+        $user->role = $request->role;
         $user->name = $request->nama_karyawan;
         $user->username = $request->username;
         $user->password = bcrypt('123456');
@@ -86,6 +87,7 @@ class UserController extends Controller
         
         $user = user::find($id);
         $user->divisi_id = $request->divisi;
+        $user->role = $request->role;
         $user->name = $request->nama_karyawan;
         $user->username = $request->username;
         // $user->password = bcrypt($request->password);

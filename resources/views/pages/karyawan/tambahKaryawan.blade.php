@@ -23,6 +23,15 @@
                   </div>
             </div>
             <div class="form-group">
+                <label for="Divisi">Divisi</label>
+                <div class="input-group mb-3">
+                    <select class="custom-select" id="inputGroupSelect01" name="role">
+                      <option value ="Admin">Admin</option>
+                      <option value ="Staff">Staff</option>
+                    </select>
+                  </div>
+            </div>
+            <div class="form-group">
                 <label for="nama">NIK</label>
                 <input type="text" class="form-control" name="nik">
             </div>

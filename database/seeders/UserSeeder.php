@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
                 'golongan_id' => 1,
                 'email' => 'bibomurphy@gmail.com',
                 'nik' => '134124234',
-                'role' => 'admin'
+                'role' => 'Admin'
             ],
         ];
 
