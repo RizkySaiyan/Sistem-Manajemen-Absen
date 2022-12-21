@@ -16,14 +16,14 @@ class UserSeeder extends Seeder
     {
         $user = [
             [
-                'name' => 'Bibo Murphy',
-                'alamat' => 'Jalan Buluh Indah',
+                'name' => 'Tirafi Raychiko Syailendra',
+                'alamat' => 'Penatih',
                 'notelp' => '085847172850',
                 'username' => 'admin',
                 'password' => bcrypt('123456'),
                 'divisi_id' => 1,
                 'golongan_id' => 1,
-                'email' => 'bibomurphy@gmail.com',
+                'email' => 'tirafichiko@gmail.com',
                 'nik' => '134124234',
                 'role' => 'Admin'
             ],
