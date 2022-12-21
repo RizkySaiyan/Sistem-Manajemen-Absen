@@ -78,8 +78,12 @@
 @endsection
 @section('js')
 <script>
-    document.getElementById('latitude').value = -8.670633204301815 ;
-    document.getElementById('longitude').value = 115.20677501572176;
+    @if(Session::has('flash-message'))
+    swal({
+        title : "{{Session::get('flash-message')}}",
+        icon  : "success"
+    })
+    @endif
     function openCam() {
         Webcam.set({
             width: 300,
@@ -165,14 +169,11 @@
         var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
         console.log(latlng)
         marker = L.marker(latlng).addTo(map)
+        document.getElementById('latitude').value = marker.getLatLng().lat;
+        document.getElementById('longitude').value = marker.getLatLng().lng;
         map.setView(latlng,14,{animation : true})
         })}
 
-@if(Session::has('flash-message'))
-    swal({
-        title : "{{Session::get('flash-message')}}",
-        icon  : "success"
-    })
-@endif
+
 </script>
 @endsection

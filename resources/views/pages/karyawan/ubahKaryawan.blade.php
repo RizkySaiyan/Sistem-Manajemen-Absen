@@ -10,14 +10,14 @@
         <h6 class="m-0 font-weight-bold text-primary">Form Tambah Karyawan</h6>
     </div>
     <div class="card-body">
-        <form action="/karyawan/update/{id}" method="post">
+        <form action="/karyawan/update/{{$user->id}}" method="post">
             @csrf
             <div class="form-group">
                 <label for="Divisi">Divisi</label>
                 <div class="input-group mb-3">
                     <select class="custom-select" id="inputGroupSelect01" name="divisi">
                     @foreach ($divisi as $item)
-                      <option value ="{{$item->id}}">{{$item->kode_divisi}}</option>
+                      <option value ="{{$item->id}}">{{$item->nama_divisi}} - {{$item->kode_divisi}}</option>
                     @endforeach
                     </select>
                   </div>

@@ -43,7 +43,8 @@ class UserController extends Controller
 
     public function karyawan(){
 
-        $user = User::paginate(10);
+        $user = User::where('id','!=',Auth::user()->id)
+        ->paginate(10);
         return view('pages.karyawan.karyawan')->with([
             'data' => $user
         ]);
@@ -94,14 +95,14 @@ class UserController extends Controller
         $user->nik = $request->nik;
         $user->save();
 
-        return redirect('/karyawan')->with('success', 'Karyawan telah berhasil diubah');
+        return redirect('/karyawan')->with('flash-message', 'Karyawan telah berhasil diubah');
     }
 
     public function destroy($id)
     {
         $user = user::find($id);
         $user->delete();
-        return redirect('/karyawan')->with('success', 'Data Berhasil Di Hapus');
+        return redirect('/karyawan')->with('flash-message', 'Data Berhasil Di Hapus');
     }
     
 }

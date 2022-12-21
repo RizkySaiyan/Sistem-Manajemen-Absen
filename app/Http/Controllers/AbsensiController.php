@@ -53,7 +53,8 @@ class AbsensiController extends Controller
         $absensi->longitude = $request->longitude;
         if($request->foto){
         $img = $request->foto;
-        $folderPath = "storage/absen_foto/";
+        $folder = "storage/absen_foto/";
+        $folderPath = "public/absen_foto/";
         
         $image_parts = explode(";base64,", $img);
         $image_type_aux = explode("image/", $image_parts[0]);
@@ -61,9 +62,10 @@ class AbsensiController extends Controller
         
         $image_base64 = base64_decode($image_parts[1]);
         $fileName = uniqid() . '.jpeg';
-        $file = $folderPath . $fileName;
+        $file = $folder . $fileName;
+        $fileUpload = $folderPath . $fileName;
         $absensi->foto_kunjungan = $file;
-        Storage::put($file, $image_base64);
+        Storage::put($fileUpload, $image_base64);
         }
         $absensi->save();
 
