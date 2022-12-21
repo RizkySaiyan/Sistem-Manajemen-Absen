@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\divisi;
 class UserSeeder extends Seeder
 {
     /**
@@ -28,8 +29,20 @@ class UserSeeder extends Seeder
             ],
         ];
 
+        $divisi = [
+            [
+                'id' => 1,
+                'nama_divisi' => 'Marketing',
+                'kode_divisi' => 'MKT-01'
+            ],
+        ];
+
         foreach ($user as $key => $value) {
             User::create($value);
+        };
+
+        foreach ($divisi as $key => $value) {
+            divisi::create($value);
         };
     }
 }
