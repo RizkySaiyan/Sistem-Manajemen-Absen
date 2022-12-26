@@ -16,13 +16,13 @@ class CreateAbsensiTable extends Migration
         Schema::create('absensi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->dateTime('jam');
+            $table->time('jam');
             $table->string('foto_kunjungan');
             $table->enum('keterangan',['Masuk','Keluar']);
             $table->string('latitude');
             $table->string('longitude');
             $table->timestamp('created_at')->nullable();
-            $table->timestamp('update_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

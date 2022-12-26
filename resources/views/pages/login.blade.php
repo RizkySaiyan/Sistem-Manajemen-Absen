@@ -47,9 +47,14 @@
                                     <form class="user" method="post" action="{{ url('/login') }}">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user"
+                                            <input type="text" class="form-control form-control-user @error('username') is-invalid @enderror"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
                                                 placeholder="Username" name="username">
+                                                @error('username')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"

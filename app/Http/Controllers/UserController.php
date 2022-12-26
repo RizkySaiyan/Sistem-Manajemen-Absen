@@ -26,7 +26,9 @@ class UserController extends Controller
         $user->nik = $request->nik;
         $user->email = $request->email;
         $user->notelp = $request->notelp;
-        $user->password = bcrypt($request->password);
+        if(!empty($request->password)){
+            $user->password = bcrypt($request->password);
+        }
         if($request->file('foto')){
             $file = $request->file('foto');
             $folderPath = "storage/profil/";

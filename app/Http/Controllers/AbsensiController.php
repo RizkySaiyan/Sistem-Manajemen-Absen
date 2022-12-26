@@ -43,6 +43,12 @@ class AbsensiController extends Controller
         return view('pages.absen.absensi', compact('absensi','user','keterangan','absensi_check'));
     }
 
+    public function list_karyawan(){
+        $user = User::all();
+
+        return view('pages.absen.list-karyawan', compact('user'));
+    }
+
     public function store(Request $request){
 
         $absensi = new absensi;
@@ -72,8 +78,11 @@ class AbsensiController extends Controller
         return redirect('/absen')->with('flash-message', 'Berhasil melakukan absen');
     }
 
-    public function rekap(Request $request){
+    public function rekap(Request $request, $id = null){
+        
+        if(empty($id)){
         $id = Auth::user()->id;
+        }
         // $now = Carbon::now();
         // dd($request->bulan,$request->tahun);
         $keterangan = $request->absen;

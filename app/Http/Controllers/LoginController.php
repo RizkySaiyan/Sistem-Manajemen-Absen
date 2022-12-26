@@ -24,7 +24,7 @@ class LoginController extends Controller
         }
         else
         {
-            return redirect()->back()->with('flash-message', 'Login gagal, username atau password salah!');
+            return redirect()->back()->withErrors(['username' => 'Login gagal, username atau password salah!'])->onlyInput('username');
         }
     }
 
