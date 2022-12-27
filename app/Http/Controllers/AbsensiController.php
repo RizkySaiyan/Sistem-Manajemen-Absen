@@ -108,9 +108,9 @@ class AbsensiController extends Controller
         $user = User::find($id);
         return view('pages.absen.rekap-absensi',compact('absensi','user','bulan_params','tahun_params'));
     }
+
     public function detail(Request $request,$id_detail){
             $now = Carbon::now();
-            $id = Auth::user()->id;
 
             $absensi = absensi::find($id_detail);
             $keterangan = (isset($absensi->keterangan) && $absensi->keterangan == 'Masuk') ? 'Keluar': 'Masuk';
@@ -118,9 +118,8 @@ class AbsensiController extends Controller
             if(empty($absensi)){
                 $absensi = [];
             };
-            
-            $user = User::find($id);
-            return view('pages.absen.detail', compact('absensi','user','keterangan'));
+        
+            return view('pages.absen.detail', compact('absensi','keterangan'));
     }
 
 }

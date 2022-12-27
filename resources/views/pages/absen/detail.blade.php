@@ -32,11 +32,11 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <label for="Kode">Nama Divisi</label>
-                        <input type="text" class="form-control mb-2" name="divisi" value="{{$user->divisi->nama_divisi}}" readonly>
+                        <input type="text" class="form-control mb-2" name="divisi" value="{{$absensi->user->divisi->nama_divisi}}" readonly>
                     </div>
                     <div class="col-lg-12">
                         <label for="inputNoRekening">Nama Karyawan</label>
-                        <input type="text" class="form-control mb-2" name="user" value="{{$user->name}}" readonly>
+                        <input type="text" class="form-control mb-2" name="user" value="{{$absensi->user->name}}" readonly>
                     </div>
                     <div class="col-lg-12">
                         <label for="Kode">Jam</label>
