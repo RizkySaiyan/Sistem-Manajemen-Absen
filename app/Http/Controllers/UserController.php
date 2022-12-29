@@ -31,7 +31,7 @@ class UserController extends Controller
         }
         if($request->file('foto')){
             $file = $request->file('foto');
-            $folderPath = "storage/profil/";
+            $folderPath = "public/profil";
             $fileNameWExt = $file->getClientOriginalName();
             $filename = pathinfo($fileNameWExt,PATHINFO_FILENAME);
             $ext = $file->getClientOriginalExtension();

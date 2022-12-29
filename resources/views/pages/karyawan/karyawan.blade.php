@@ -23,7 +23,7 @@
                     @foreach ($data as $item)
                         <tr>
                             <td>{{$item->name}}</td>
-                            <td>{{$item->divisi->nama_divisi}}</td>
+                            <td>{{$item->divisi->nama_divisi ?? '-'}}</td>
                             <form action="/karyawan/destroy/{{$item->id}}" method="post">
                                 @csrf
                                 <td>
