@@ -49,7 +49,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item {{request()->is('/profil') ? 'active' : ''}}">
+            <li class="nav-item {{(request()->is('profil')) ? 'active' : ''}}">
                 <a class="nav-link" href="/profil">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Profil</span></a>
@@ -64,7 +64,7 @@
                 Master Data
             </div>
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item {{request()->is('/jam-kerja') ? 'active' : ''}}">
+            <li class="nav-item {{(request()->is('jam-kerja*')) ? 'active' : ''}}">
                 <a class="nav-link" href="/jam-kerja">
                     <i class="fas fa-fw fa-clock"></i>
                     <span>Jam Kerja</span>
@@ -72,14 +72,14 @@
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item {{request()->is('/divisi') ? 'active' : ''}}">
+            <li class="nav-item {{(request()->is('divisi*')) ? 'active' : ''}}">
                 <a class="nav-link" href="/divisi">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Divisi</span>
                 </a>
             </li>
 
-            <li class="nav-item {{request()->is('/karyawan') ? 'active' : ''}}">
+            <li class="nav-item {{(request()->is('karyawan*')) ? 'active' : ''}}">
                 <a class="nav-link" href="/karyawan">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Data Karyawan</span>
@@ -101,7 +101,7 @@
                 Absensi
             </div>
 
-            <li class="nav-item {{request()->is('/absen') ? 'active' : ''}}">
+            <li class="nav-item {{(request()->is('absen*')) ? 'active' : ''}}">
                 <a class="nav-link" href="/absen">
                     <i class="fas fa-fw fa-calendar"></i>
                     <span>Absen</span>

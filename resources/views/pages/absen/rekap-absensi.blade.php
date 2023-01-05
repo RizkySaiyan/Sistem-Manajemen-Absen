@@ -67,20 +67,24 @@ setlocale(LC_TIME, 'id_ID');
                                 <th class="border-0 py-0">:</th>
                                 <th class="border-0 py-0">{{$user->divisi->nama_divisi}}</th>
                             </tr>
+                            <tr>
+                                <th class="border-0 py-0">Jumlah Absen Bulan Ini</th>
+                                <th class="border-0 py-0">:</th>
+                                <th class="border-0 py-0">{{count($count)}}</th>
+                            </tr>
                         </table>
                     </div>
-                    {{-- <div class="col-xs-12 col-sm-6 ml-auto text-right mb-2">
+                    <div class="col-xs-12 col-sm-6 ml-auto text-right mb-2">
                         <div class="dropdown d-inline">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="droprop-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-print"></i>
                                 Export Laporan
                             </button>
                             <div class="dropdown-menu" aria-labelledby="droprop-action">
-                                <a href="#" class="dropdown-item" target="_blank"><i class="fa fa-file-pdf-o"></i> PDF</a>
-                                <a href="#" class="dropdown-item" target="_blank"><i class="fa fa-file-excel-o"></i> Excel</a>
+                                <a href="/absen-rekap-pdf/{{$user->id}}?bulan={{$bulan_params}}&tahun={{$tahun_params}}" class="dropdown-item" target="_blank"><i class="fa fa-file-pdf-o"></i> PDF</a>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
                 </div>
             </div>            
             <div class="card-body">

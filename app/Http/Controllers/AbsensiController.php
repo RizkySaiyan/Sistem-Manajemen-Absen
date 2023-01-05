@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use PDF;
 class AbsensiController extends Controller
 {
     public function __construct()
@@ -81,7 +82,7 @@ class AbsensiController extends Controller
     public function rekap(Request $request, $id = null){
         
         if(empty($id)){
-        $id = Auth::user()->id;
+            $id = Auth::user()->id;
         }
         // $now = Carbon::now();
         // dd($request->bulan,$request->tahun);
@@ -96,17 +97,22 @@ class AbsensiController extends Controller
         ->get();
         
         if(isset($keterangan)){
-           $absensi = absensi::keterangan($keterangan)
+           $absensi = absensi::where('keterangan','=',$keterangan)
             ->WhereMonth('created_at','=',$request->bulan)
             ->WhereYear('created_at','=',$request->tahun)
             ->orderBy('created_at','desc')
             ->get();
         }
-        // ->toArray();
+
+        $count = absensi::where('keterangan','=','Masuk')
+        ->where('user_id','=',$id)
+        ->WhereMonth('created_at','=',$request->bulan)
+        ->WhereYear('created_at','=',$request->tahun)
+        ->get();
         
         
         $user = User::find($id);
-        return view('pages.absen.rekap-absensi',compact('absensi','user','bulan_params','tahun_params'));
+        return view('pages.absen.rekap-absensi',compact('count','absensi','user','bulan_params','tahun_params'));
     }
 
     public function detail(Request $request,$id_detail){
@@ -120,6 +126,43 @@ class AbsensiController extends Controller
             };
         
             return view('pages.absen.detail', compact('absensi','keterangan'));
+    }
+
+    public function cetak_pdf(Request $request,$id){
+
+        if(empty($id)){
+            $id = Auth::user()->id;
+        }
+        // $now = Carbon::now();
+        // dd($request->bulan,$request->tahun);
+        $keterangan = $request->absen;
+        $bulan_params = $request->bulan;
+        $tahun_params = $request->tahun;
+
+        $absensi = absensi::where('user_id','=',$id)
+        ->WhereMonth('created_at','=',$request->bulan)
+        ->WhereYear('created_at','=',$request->tahun)
+        ->orderBy('created_at','desc')
+        ->get();
+        
+        if(isset($keterangan)){
+           $absensi = absensi::where('keterangan','=',$keterangan)
+            ->WhereMonth('created_at','=',$request->bulan)
+            ->WhereYear('created_at','=',$request->tahun)
+            ->orderBy('created_at','desc')
+            ->get();
+        }
+
+        $count = absensi::where('keterangan','=','Masuk')
+        ->where('user_id','=',$id)
+        ->WhereMonth('created_at','=',$request->bulan)
+        ->WhereYear('created_at','=',$request->tahun)
+        ->get();
+        
+        
+        $user = User::find($id);
+        $pdf = PDF::loadView('pages/absen/rekap-absensi-pdf',compact('user','count','absensi','bulan_params','tahun_params'))->setPaper('a4','portrait');
+        return $pdf->download('Rekap Absensi PDF');
     }
 
 }
