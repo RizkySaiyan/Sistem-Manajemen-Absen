@@ -72,10 +72,10 @@ class UserController extends Controller
         $user->notelp = $request->notelp;
         $user->email = $request->email;
         $user->nik = $request->nik;
-        $user->role = 'Staff';
+        $user->role = $request->role;
         $user->save();
 
-        return redirect('/karyawan')->with('success', 'Karyawan telah berhasil ditambah!'); 
+        return redirect('/karyawan')->with('flash-message', 'Karyawan telah berhasil ditambah!'); 
     }
 
     public function edit($id){
@@ -97,6 +97,7 @@ class UserController extends Controller
         $user->notelp = $request->notelp;
         $user->email = $request->email;
         $user->nik = $request->nik;
+        $user->role = $request->role;
         $user->save();
 
         return redirect('/karyawan')->with('flash-message', 'Karyawan telah berhasil diubah');

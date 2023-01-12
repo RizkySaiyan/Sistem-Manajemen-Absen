@@ -49,7 +49,7 @@ class JamKerjaController extends Controller
 
         $jamkerja->save();
 
-        return redirect('/jam-kerja')->with('success', 'Jam Kerja telah berhasil ditambah!');
+        return redirect('/jam-kerja')->with('flash-message', 'Jam Kerja telah berhasil ditambah!');
     }
 
     public function update(Request $request,$id){
@@ -61,13 +61,13 @@ class JamKerjaController extends Controller
 
         $jamkerja->save();
 
-        return redirect('/jam-kerja')->with('success', 'Divisi telah berhasil diubah');
+        return redirect('/jam-kerja')->with('flash-message', 'Divisi telah berhasil diubah');
     }
 
     public function destroy($id)
     {
         $jamkerja = jamkerja::find($id);
         $jamkerja->delete();
-        return redirect('/jam-kerja')->with('success', 'Data Berhasil Di Hapus');
+        return redirect('/jam-kerja')->with('flash-message', 'Data Berhasil Di Hapus');
     }
 }
