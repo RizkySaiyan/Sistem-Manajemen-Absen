@@ -62,10 +62,13 @@
                         <input type="text" class="form-control" id="longitude" name="longitude" readonly>
                     </div>     
                 </div>
-                <input type="hidden" id="keterangan" name="keterangan" value="{{$keterangan}}" class="form-control" readonly>
+                 <input type="hidden" id="keterangan" name="keterangan" value="{{$keterangan}}" class="form-control" readonly>
                 <div>
                     @if(count($absensi_check) == 2)
                         <button type='submit' class='btn btn-success mt-2'  id='absen' style='display:none;' disabled>Absen {{$keterangan}}</button>
+                    @elseif(Auth::user()->role == 'Admin')
+                        <button type='submit' name = 'keterangan' value='Sakit' class='btn btn-danger mt-2'>Sakit</button>
+                        <button type='submit' name = 'keterangan' value='Izin' class='btn btn-warning mt-2'>Izin</button>
                     @else
                         <button type='submit' class='btn btn-success mt-2'  id='absen' style='display:none;'>Absen {{$keterangan}}</button>
                     @endif

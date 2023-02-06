@@ -100,9 +100,8 @@
             <div class="sidebar-heading">
                 Absensi
             </div>
-
             <li class="nav-item {{(request()->is('absen*')) ? 'active' : ''}}">
-                <a class="nav-link" href="/absen">
+                <a class="nav-link" href="{{Auth::user()->role == 'Admin' ? url('/list-karyawan') : url('/absen')}}">
                     <i class="fas fa-fw fa-calendar"></i>
                     <span>Absen</span>
                 </a>
@@ -115,7 +114,7 @@
             </div>
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="{{Auth::user()->role == 'Admin' ? '/list-karyawan' : 'absen-rekap'}}">
+                <a class="nav-link" href="{{Auth::user()->role == 'Admin' ? '/list-karyawan-rekap' : 'absen-rekap'}}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Rekapan Absensi</span></a>
             </li>
@@ -229,7 +228,6 @@
         <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
         integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
         crossorigin=""></script>
-        @yield('js')
         <!-- Page level plugins -->
         <script src="{{url('template-backoffice/vendor/chart.js/Chart.min.js')}}"></script>
         <script src="{{url('template-backoffice/vendor/datatables/jquery.dataTables.min.js')}}"></script>
@@ -245,15 +243,16 @@
                         "infoFiltered": "(filtered from _MAX_ total records)"
                     }
                 });
-
-
+                
+                
             });
-
-        </script>
+            
+            </script>
+        @yield('js')
         <!-- Page level custom scripts -->
-        <script src="{{url('template-backoffice/js/demo/chart-area-demo.js')}}"></script>
-        <script src="{{url('template-backoffice/js/demo/chart-pie-demo.js')}}"></script>
-
+        {{-- <script src="{{url('template-backoffice/js/demo/chart-area-demo.js')}}"></script> --}}
+        {{-- <script src="{{url('template-backoffice/js/demo/chart-pie-demo.js')}}"></script> --}}
+        
 </body>
 
 </html>

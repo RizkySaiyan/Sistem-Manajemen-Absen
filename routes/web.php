@@ -15,9 +15,7 @@ use App\Http\Controllers as C;
 |
 */
 
-Route::get('/', function () {
-    return view('pages/dashboard');
-})->middleware('auth');
+Route::get('/',[C\DashboardController::class,'index'])->middleware('auth');
 
 Route::post('/login', [C\LoginController::class,'authenticate'])->name('login');
 Route::get('/login', [C\LoginController::class,'index']);
@@ -34,10 +32,11 @@ Route::post('/karyawan/update/{id}',[C\UserController::class,'update']);
 Route::post('/karyawan/destroy/{id}',[C\UserController::class,'destroy']);
 
 
-Route::get('/absen',[C\AbsensiController::class,'index'])->middleware('auth');
+Route::get('/absen/{id?}',[C\AbsensiController::class,'index'])->middleware('auth');
 Route::post('/absen',[C\AbsensiController::class,'store'])->middleware('auth');
 Route::get('/absen-rekap/{id?}',[C\AbsensiController::class,'rekap'])->middleware('auth');
 Route::get('/absen-rekap-pdf/{id?}',[C\AbsensiController::class,'cetak_pdf'])->middleware('auth');
+Route::get('/list-karyawan-rekap',[C\AbsensiController::class,'list_karyawan'])->middleware('auth');
 Route::get('/list-karyawan',[C\AbsensiController::class,'list_karyawan'])->middleware('auth');
 Route::get('/detail-absen/{id_detail}',[C\AbsensiController::class,'detail'])->middleware('auth');
 

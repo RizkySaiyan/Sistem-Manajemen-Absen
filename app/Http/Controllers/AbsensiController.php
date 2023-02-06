@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\absensi;
 use App\Models\User;
+use App\Models\jamkerja;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -17,10 +18,15 @@ class AbsensiController extends Controller
         $this->middleware('auth');
     }
     
-    public function index(){
+    public function index($id_route = null){
         $now = Carbon::now();
 
-        $id = Auth::user()->id;
+        if($id_route){
+            $id = $id_route;    
+        }
+        else{
+            $id = Auth::user()->id;
+        }
         $absensi = absensi::where('user_id','=',$id)
         ->whereDate('created_at','=',$now->toDateString())
         ->orderBy('created_at','desc')
@@ -33,15 +39,14 @@ class AbsensiController extends Controller
         ->toArray();
 
         $keterangan = (isset($absensi->keterangan) && $absensi->keterangan == 'Masuk') ? 'Keluar': 'Masuk';
-        
+        $jam_kerja = jamkerja::all();
+       
         if(empty($absensi)){
             $absensi = [];
         };
-
-
         // dd(count($absensi_check));
         $user = User::find($id);
-        return view('pages.absen.absensi', compact('absensi','user','keterangan','absensi_check'));
+        return view('pages.absen.absensi', compact('id','jam_kerja','absensi','user','keterangan','absensi_check'));
     }
 
     public function list_karyawan(){
@@ -49,6 +54,7 @@ class AbsensiController extends Controller
 
         return view('pages.absen.list-karyawan', compact('user'));
     }
+    
 
     public function store(Request $request){
 
@@ -84,13 +90,16 @@ class AbsensiController extends Controller
         if(empty($id)){
             $id = Auth::user()->id;
         }
-        // $now = Carbon::now();
-        // dd($request->bulan,$request->tahun);
+        $user = User::find($id);
+
         $keterangan = $request->absen;
         $bulan_params = $request->bulan;
         $tahun_params = $request->tahun;
 
-        $absensi = absensi::where('user_id','=',$id)
+        $absensi = absensi::join('users','users.id','=','absensi.user_id')
+        ->join('waktu_kerja','waktu_kerja.divisi_id','users.divisi_id')
+        ->select('waktu_kerja.*','absensi.*')
+        ->where('user_id','=',$id)
         ->WhereMonth('created_at','=',$request->bulan)
         ->WhereYear('created_at','=',$request->tahun)
         ->orderBy('created_at','desc')
@@ -98,10 +107,14 @@ class AbsensiController extends Controller
         
         if(isset($keterangan)){
            $absensi = absensi::where('keterangan','=',$keterangan)
-            ->WhereMonth('created_at','=',$request->bulan)
-            ->WhereYear('created_at','=',$request->tahun)
-            ->orderBy('created_at','desc')
-            ->get();
+           ->join('users','users.id','=','absensi.user_id')
+           ->join('waktu_kerja','waktu_kerja.divisi_id','users.divisi_id')
+           ->select('waktu_kerja.*','absensi.*')
+           ->where('user_id','=',$id)
+           ->WhereMonth('created_at','=',$request->bulan)
+           ->WhereYear('created_at','=',$request->tahun)
+           ->orderBy('created_at','desc')
+           ->get();
         }
 
         $count = absensi::where('keterangan','=','Masuk')
@@ -109,10 +122,36 @@ class AbsensiController extends Controller
         ->WhereMonth('created_at','=',$request->bulan)
         ->WhereYear('created_at','=',$request->tahun)
         ->get();
+
+        $count_absen = absensi::where('keterangan','=','Izin')
+        ->orWhere('keterangan','=','Sakit')
+        ->where('user_id','=',$id)
+        ->WhereMonth('created_at','=',$request->bulan)
+        ->WhereYear('created_at','=',$request->tahun)
+        ->get();
+
+        $new_absensi = $absensi->map(function ($new_absensi){
+            if($new_absensi->jam_masuk < $new_absensi->jam){
+                $jumlah_terlambat = $new_absensi->jadwal = 'Terlambat';
+            }
+            elseif($new_absensi->keterangan == 'Sakit' || $new_absensi->keterangan == 'Izin') {
+                $new_absensi->jadwal = 'Tidak Masuk';
+            }
+            else{
+                $new_absensi->jadwal = 'Tepat Waktu';
+            }
+            return $new_absensi;
+        });
+        $jumlah_terlambat = 0;
+        foreach ($new_absensi as $key => $value) {
+            if($value['jadwal'] === 'Terlambat'){
+                $jumlah_terlambat++;
+            }
+        }
+
+        // dd($new_absensi);
         
-        
-        $user = User::find($id);
-        return view('pages.absen.rekap-absensi',compact('count','absensi','user','bulan_params','tahun_params'));
+        return view('pages.absen.rekap-absensi',compact('jumlah_terlambat','count','count_absen','new_absensi','user','bulan_params','tahun_params'));
     }
 
     public function detail(Request $request,$id_detail){

@@ -27,12 +27,14 @@
                             <form action="/karyawan/destroy/{{$item->id}}" method="post">
                                 @csrf
                                 <td>
+                                    @if($item->role == 'Staff')
                                     <a href="/karyawan/edit/{{$item->id}}" class="btn btn-success">
-                                    <i class="fas fa-edit"></i>
+                                        <i class="fas fa-edit"></i>
                                     </a>
                                     <button class="delete btn btn-danger">
                                         <i class="fas fa-trash"></i>
                                     </button>
+                                    @endif
                                 </td>
                             </form>
                         </tr>

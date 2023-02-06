@@ -72,6 +72,12 @@ setlocale(LC_TIME, 'id_ID');
                                 <th class="border-0 py-0">:</th>
                                 <th class="border-0 py-0">{{count($count)}}</th>
                             </tr>
+                            <tr>
+                                <th class="border-0 py-0">Jumlah Tidak Masuk Bulan Ini</th>
+                                <th class="border-0 py-0">:</th>
+                                
+                                <th class="border-0 py-0">{{count($count_absen)}}</th>
+                            </tr>
                         </table>
                     </div>
                     <div class="col-xs-12 col-sm-6 ml-auto text-right mb-2">
@@ -85,7 +91,12 @@ setlocale(LC_TIME, 'id_ID');
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>             
+                @if($jumlah_terlambat >= 3)
+                    <div class="alert alert-danger" role="alert">
+                        Anda telah melewati batas keterlambatan !
+                    </div>
+                @endif
             </div>            
             <div class="card-body">
                 <h4 class="card-title mb-4">Absen Bulan :</h4>
@@ -94,16 +105,18 @@ setlocale(LC_TIME, 'id_ID');
                         <th>No</th>
                         <th>Tanggal</th>
                         <th>Jam</th>
+                        <th>Absen</th>
                         <th>Keterangan</th>
                         <th>Detail</th>
                     </thead>
                     <tbody>
-                        @foreach($absensi as $key => $item)
+                        @foreach($new_absensi as $key => $item)
                         <tr>
                             <td>{{$key+1}}</td>
                             <td>{{Carbon::parse($item->created_at)->isoFormat('dddd, D MMMM Y')}}</td>
                             <td>{{$item->jam}}</td>
                             <td>{{$item->keterangan}}</td>
+                            <td class="table-warning">{{$item->jadwal}}</td>
                             <td><a href ="/detail-absen/{{$item->id}}"class="btn btn-primary"><i class="fa fa-fw fa-eye"></i></a></td>
                         </tr>
                         @endforeach

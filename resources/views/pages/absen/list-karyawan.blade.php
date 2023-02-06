@@ -23,7 +23,7 @@
                             <td>{{$item->name}}</td>
                             <td>{{$item->divisi->nama_divisi}}</td>
                                 <td>
-                                    <a href="/absen-rekap/{{$item->id}}" class="btn btn-primary">
+                                    <a href="{{(request()->is('list-karyawan-rekap')) ? url('/absen-rekap/'.$item->id) : url('/absen/'.$item->id)}}" class="btn btn-primary">
                                     <i class="fas fa-eye"></i>
                                     </a>
                                 </td>

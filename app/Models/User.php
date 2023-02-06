@@ -34,6 +34,12 @@ class User extends Authenticatable
         return $this->belongsTo(absensi::class);
     }
 
+    
+
+    // public function jam_kerja(){
+    //     return $this->hasOne(jamkerja::class,'divisi_id');
+    // }
+
     /**
      * The attributes that should be hidden for arrays.
      *
