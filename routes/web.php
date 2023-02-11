@@ -15,6 +15,7 @@ use App\Http\Controllers as C;
 |
 */
 
+// Route::get('/dashboard',[C\DashboardController::class,'index'])->middleware('auth');
 Route::get('/',[C\DashboardController::class,'index'])->middleware('auth');
 
 Route::post('/login', [C\LoginController::class,'authenticate'])->name('login');

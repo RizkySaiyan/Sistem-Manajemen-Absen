@@ -16,15 +16,15 @@
      integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
      crossorigin=""/>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link href="{{url('template-backoffice/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet"
+    <link href="{{asset('template-backoffice/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet"
         type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{{url('template-backoffice/css/sb-admin-2.min.css')}}" rel="stylesheet">
-    <link href="{{url('template-backoffice/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+    <link href="{{asset('template-backoffice/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('template-backoffice/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 
 </head>
 
@@ -49,14 +49,20 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
+            @if(Auth::user()->role == 'Staff')
             <li class="nav-item {{(request()->is('profil')) ? 'active' : ''}}">
                 <a class="nav-link" href="/profil">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Profil</span></a>
             </li>
-
+            @endif
             <!-- Divider -->
             @if(Auth::user()->role == 'Admin')
+            <a class="nav-link" href="/">
+                <li class="nav-item {{(request()->is('dashboard')) ? 'active' : ''}}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
             <hr class="sidebar-divider">
 
             <!-- Heading -->
@@ -215,23 +221,23 @@
         </div>
 
         <!-- Bootstrap core JavaScript-->
-        <script src="{{url('template-backoffice/vendor/jquery/jquery.min.js')}}"></script>
-        <script src="{{url('template-backoffice/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+        <script src="{{asset('template-backoffice/vendor/jquery/jquery.min.js')}}"></script>
+        <script src="{{asset('template-backoffice/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
         <!-- Core plugin JavaScript-->
-        <script src="{{url('template-backoffice/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+        <script src="{{asset('template-backoffice/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
         <script src="{{asset('js/camera.js')}}"></script>
         <!-- Custom scripts for all pages-->
-        <script src="{{url('template-backoffice/js/sb-admin-2.min.js')}}"></script>
+        <script src="{{asset('template-backoffice/js/sb-admin-2.min.js')}}"></script>
         </script>
         <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
         integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
         crossorigin=""></script>
         <!-- Page level plugins -->
-        <script src="{{url('template-backoffice/vendor/chart.js/Chart.min.js')}}"></script>
-        <script src="{{url('template-backoffice/vendor/datatables/jquery.dataTables.min.js')}}"></script>
-        <script src="{{url('template-backoffice/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('template-backoffice/vendor/chart.js/Chart.min.js')}}"></script>
+        <script src="{{asset('template-backoffice/vendor/datatables/jquery.dataTables.min.js')}}"></script>
+        <script src="{{asset('template-backoffice/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
         <script>
             $(document).ready(function () {
                 $('#dataTable').DataTable({

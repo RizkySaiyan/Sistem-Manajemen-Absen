@@ -16,9 +16,9 @@ class CreateAbsensiTable extends Migration
         Schema::create('absensi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->time('jam');
+            $table->time('jam')->nullable();
             $table->string('foto_kunjungan');
-            $table->enum('keterangan',['Masuk','Keluar']);
+            $table->enum('keterangan',['Masuk','Keluar','Sakit','Izin']);
             $table->string('latitude');
             $table->string('longitude');
             $table->timestamp('created_at')->nullable();

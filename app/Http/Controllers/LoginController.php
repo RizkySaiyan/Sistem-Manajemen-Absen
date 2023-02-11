@@ -19,8 +19,15 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) 
         {
+            
             $request->session()->regenerate();
+            $user = Auth::user();
+           
+            if($user->role == 'Admin'){
+                return redirect('/')->with('flash-message', 'Login sukses!');
+            }
             return redirect('/profil')->with('flash-message', 'Login sukses!');
+
         }
         else
         {
