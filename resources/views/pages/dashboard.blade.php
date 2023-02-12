@@ -80,12 +80,9 @@ setlocale(LC_TIME, 'id_ID');
             </div>
             <!-- Card Body -->
             <div class="card-body">
-                <div class="chart-pie pt-4">
+                <div class="chart-pie">
                     <canvas id="myPieChart"></canvas>
                 </div>
-                <hr>
-                Styling for the donut chart can be found in the
-                <code>/js/demo/chart-pie-demo.js</code> file.
             </div>
         </div>
     </div>
@@ -111,21 +108,22 @@ setlocale(LC_TIME, 'id_ID');
           },
           
           options: {
-            scales: {
-              y: {
-                beginAtZero: true
-              }
+            maintainAspectRatio: false,
+                tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                caretPadding: 10,
             },
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                },
-                title: {
-                    display: true,
-                    text: 'Persentase Siswa Yang Menunggak'
-                },
+            legend: {
+                display: true
             },
-        }
+        cutoutPercentage: 80,
+    },
         });
 </script>
 @endsection

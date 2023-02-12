@@ -67,8 +67,8 @@
                     @if(count($absensi_check) == 2)
                         <button type='submit' class='btn btn-success mt-2'  id='absen' style='display:none;' disabled>Absen {{$keterangan}}</button>
                     @elseif(Auth::user()->role == 'Admin')
-                        <button type='submit' name = 'keterangan' value='Sakit' class='btn btn-danger mt-2'>Sakit</button>
-                        <button type='submit' name = 'keterangan' value='Izin' class='btn btn-warning mt-2'>Izin</button>
+                        <button type='submit' name = 'keterangan' value='Sakit' class='btn btn-danger mt-2' {{isset($absensi) ? 'disabled' : ''}}>Sakit</button>
+                        <button type='submit' name = 'keterangan' value='Izin' class='btn btn-warning mt-2' {{isset($absensi) ? 'disabled' : ''}}>Izin</button>
                     @else
                         <button type='submit' class='btn btn-success mt-2'  id='absen' style='display:none;'>Absen {{$keterangan}}</button>
                     @endif

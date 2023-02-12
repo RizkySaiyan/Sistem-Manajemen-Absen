@@ -62,8 +62,8 @@ class AbsensiController extends Controller
         $absensi->jam = $request->jam;
         $absensi->user_id = Auth::user()->id;
         $absensi->keterangan = $request->keterangan;
-        $absensi->latitude = $request->latitude;
-        $absensi->longitude = $request->longitude;
+        $absensi->latitude = $request->latitude ?? 0;
+        $absensi->longitude = $request->longitude ?? 0;
         if($request->foto){
         $img = $request->foto;
         $folder = "storage/absen_foto/";
@@ -80,6 +80,7 @@ class AbsensiController extends Controller
         $absensi->foto_kunjungan = $file;
         Storage::put($fileUpload, $image_base64);
         }
+        $absensi->foto_kunjungan = '-';
         $absensi->save();
 
         return redirect('/absen')->with('flash-message', 'Berhasil melakukan absen');
@@ -130,20 +131,20 @@ class AbsensiController extends Controller
         ->WhereYear('created_at','=',$request->tahun)
         ->get();
 
-        $new_absensi = $absensi->map(function ($new_absensi){
-            if($new_absensi->jam_masuk < $new_absensi->jam){
-                $jumlah_terlambat = $new_absensi->jadwal = 'Terlambat';
+        $absensi = $absensi->map(function ($absensi){
+            if($absensi->jam_masuk < $absensi->jam && $absensi->keterangan === 'Masuk'){
+                $jumlah_terlambat = $absensi->jadwal = 'Terlambat';
             }
-            elseif($new_absensi->keterangan == 'Sakit' || $new_absensi->keterangan == 'Izin') {
-                $new_absensi->jadwal = 'Tidak Masuk';
+            elseif($absensi->keterangan == 'Sakit' || $absensi->keterangan == 'Izin') {
+                $absensi->jadwal = 'Tidak Masuk';
             }
             else{
-                $new_absensi->jadwal = 'Tepat Waktu';
+                $absensi->jadwal = 'Tepat Waktu';
             }
-            return $new_absensi;
+            return $absensi;
         });
         $jumlah_terlambat = 0;
-        foreach ($new_absensi as $key => $value) {
+        foreach ($absensi as $key => $value) {
             if($value['jadwal'] === 'Terlambat'){
                 $jumlah_terlambat++;
             }
@@ -151,7 +152,7 @@ class AbsensiController extends Controller
 
         // dd($new_absensi);
         
-        return view('pages.absen.rekap-absensi',compact('jumlah_terlambat','count','count_absen','new_absensi','user','bulan_params','tahun_params'));
+        return view('pages.absen.rekap-absensi',compact('jumlah_terlambat','count','count_absen','absensi','user','bulan_params','tahun_params'));
     }
 
     public function detail(Request $request,$id_detail){

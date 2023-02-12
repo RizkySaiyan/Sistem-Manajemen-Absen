@@ -110,7 +110,7 @@ setlocale(LC_TIME, 'id_ID');
                         <th>Detail</th>
                     </thead>
                     <tbody>
-                        @foreach($new_absensi as $key => $item)
+                        @foreach($absensi as $key => $item)
                         <tr>
                             <td>{{$key+1}}</td>
                             <td>{{Carbon::parse($item->created_at)->isoFormat('dddd, D MMMM Y')}}</td>
